@@ -14,9 +14,9 @@ const OverheadPress = () => {
   // For correct / incorrect
   const [hasStarted, setHasStarted] = useState(false);
   const [isCorrectState, setIsCorrectState] = useState(false);
-  const [incorrectCount, setIncorrectCount] = useState(0);
   const [isCooldown, setIsCooldown] = useState(false);
   const [exerciseName, setExerciseName] = useState(""); // New state for exercise name
+  const [unrecognizedExercise, setUnrecognizedExercise] = useState(false);
 
   useEffect(() => {
     let interval = null;
@@ -57,12 +57,10 @@ const OverheadPress = () => {
 
   const predictionHandler = (predictions) => {
     if (predictions) {
-      // console.log(predictions); // Uncomment for debugging
-
       if (predictions.label !== LABEL) {
         setIsCorrectState(false);
-        setIncorrectCount((prevCount) => prevCount + 1);
         setExerciseName(""); // Clear exercise name if incorrect
+        setUnrecognizedExercise(true);
       } else if (!isCooldown) {
         setIsCorrectState(true);
         setExerciseName("Overhead Press"); // Set exercise name if correct
@@ -82,6 +80,7 @@ const OverheadPress = () => {
         });
         setIsCooldown(true);
         setTimeout(() => setIsCooldown(false), COOLDOWN_TIME);
+        setUnrecognizedExercise(false);
       }
     }
   };
@@ -102,19 +101,31 @@ const OverheadPress = () => {
               Rest
             </button>
           </div>
+          <div style={styles.text}>
+            {hasStarted && (
+              <h2 style={{ color: isCorrectState ? styles.greenText.color : styles.lightRedText.color, ...styles.exerciseText }}>
+                {isCorrectState
+                  ? "Correct Exercise"
+                  : "Incorrect Exercise"}
+              </h2>
+            )}
+          </div>
           <div style={styles.camera}>
             {showCamera && (
-              <Classifier predictionHandler={predictionHandler} />
+              <React.Fragment>
+                <Classifier predictionHandler={predictionHandler} />
+                <div style={styles.cameraTextContainer}>
+                  {exerciseName && (
+                    <h2 style={styles.exerciseName}>{exerciseName}</h2>
+                  )}
+                  {unrecognizedExercise && (
+                    <h2 style={styles.unrecognizedExercise}>Unrecognized Exercise</h2>
+                  )}
+                </div>
+              </React.Fragment>
             )}
           </div>
           <div style={styles.text}>
-            {hasStarted && (
-              <h2 style={{ color: isCorrectState ? "green" : "red" }}>
-                {isCorrectState
-                  ? "Correct Exercise!"
-                  : "Incorrect. Check Exercise!"}
-              </h2>
-            )}
             <h2>
               Set: <span style={styles.greenText}>{sets}</span> / 4
             </h2>
@@ -124,9 +135,6 @@ const OverheadPress = () => {
             <h2>
               Rest Duration: <span style={styles.greenText}>{timer} seconds</span>
             </h2>
-            {exerciseName && (
-              <h2 style={styles.exerciseName}>{exerciseName}</h2>
-            )}
           </div>
           <button type="button" style={styles.finishButton} onClick={handleHome}>
             Finish Workout
@@ -150,10 +158,20 @@ const styles = {
     margin: "20px 0",
   },
   greenText: {
-    color: "green",
+    color: "#5aad70",
   },
-  redText: {
-    color: "red",
+  lightRedText: {
+    color: "#FF6666",
+  },
+  unrecognizedExercise: {
+    color: "#FF6666",
+    fontSize: "51px",
+    fontWeight: "bold",
+    marginTop: "10px",
+  },
+  cameraTextContainer: {
+    textAlign: "center",
+    marginTop: "10px",
   },
   webContainer: {
     padding: "20px",
@@ -223,8 +241,13 @@ const styles = {
     borderRadius: "10px",
   },
   exerciseName: {
-    color: "#00FF00",
-    fontSize: "24px",
+    color: "#5aad70",
+    fontSize: "51px",
+    fontWeight: "bold",
+    marginTop: "10px",
+  },
+  exerciseText: {
+    fontSize: "51px",
     fontWeight: "bold",
     marginTop: "10px",
   },

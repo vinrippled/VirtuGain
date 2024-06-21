@@ -32,7 +32,7 @@ const Curl = () => {
 
   const handleHome = () => {
     // Adds record to db
-    addRecordToDb("Biceps Curl", sets, reps, (err, response) => {
+    addRecordToDb("Bicep Curl", sets, reps, (err, response) => {
       if (err) console.log(err);
     });
 
@@ -65,7 +65,7 @@ const Curl = () => {
         setExerciseName(""); // Clear exercise name if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
-        setExerciseName("Biceps Curl"); // Set exercise name if correct
+        setExerciseName("Bicep Curl"); // Set exercise name if correct
         setReps((prevReps) => {
           const newReps = prevReps + 1;
           if (newReps >= 6) {
@@ -102,6 +102,15 @@ const Curl = () => {
               Rest
             </button>
           </div>
+          <div style={styles.statusTextContainer}>
+            {hasStarted && (
+              <h2 style={{ color: isCorrectState ? styles.greenText.color : styles.lightRedText.color, ...styles.exerciseText }}>
+                {isCorrectState
+                  ? "Correct Exercise"
+                  : "Incorrect Exercise"}
+              </h2>
+            )}
+          </div>
           <div style={styles.camera}>
             {showCamera && (
               <Classifier predictionHandler={predictionHandler} />
@@ -113,13 +122,6 @@ const Curl = () => {
             )}
             {!exerciseName && hasStarted && (
               <h2 style={styles.unrecognizedExercise}>Unrecognized Exercise</h2>
-            )}
-            {hasStarted && (
-              <h2 style={{ color: isCorrectState ? styles.greenText.color : styles.lightRedText.color, ...styles.exerciseText }}>
-                {isCorrectState
-                  ? "Correct Exercise!"
-                  : "Incorrect Exercise"}
-              </h2>
             )}
             <h2>
               Set: <span style={styles.greenText}>{sets}</span> / 4
@@ -153,7 +155,7 @@ const styles = {
     margin: "20px 0",
   },
   greenText: {
-    color: "green",
+    color: "#5aad70",
   },
   lightRedText: {
     color: "#FF6666",
@@ -171,6 +173,10 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "20px",
+  },
+  statusTextContainer: {
+    textAlign: "center",
+    marginBottom: "10px", // Reduced margin for closer placement
   },
   camera: {
     marginBottom: "20px",
@@ -226,19 +232,19 @@ const styles = {
     borderRadius: "10px",
   },
   exerciseName: {
-    color: "#00FF00",
-    fontSize: "24px",
+    color: "#5aad70",
+    fontSize: "51px", // Enlarged text size
     fontWeight: "bold",
     marginTop: "10px",
   },
-  unrecognizedExercise: {
-    color: "#FF0000",
-    fontSize: "24px",
+  unrecognizedExercise: { //unrecog
+    color: "#FF6666",
+    fontSize: "51px", // Enlarged text size
     fontWeight: "bold",
     marginTop: "10px",
   },
   exerciseText: {
-    fontSize: "24px",
+    fontSize: "51px", // Enlarged text size
     fontWeight: "bold",
     marginTop: "10px",
   },

@@ -102,31 +102,36 @@ const Lunge = () => {
               Rest
             </button>
           </div>
+          <div style={styles.text}>
+            {hasStarted && (
+              <h2 style={{ textAlign: "center", color: isCorrectState ? styles.greenText.color : styles.lightRedText.color, ...styles.exerciseText }}>
+                {isCorrectState
+                  ? "Correct Exercise"
+                  : "Incorrect Exercise"}
+              </h2>
+            )}
+          </div>
           <div style={styles.camera}>
             {showCamera && (
               <Classifier predictionHandler={predictionHandler} />
             )}
           </div>
           <div style={styles.text}>
-            {hasStarted && (
-              <h2 style={{ color: isCorrectState ? "green" : "red" }}>
-                {isCorrectState
-                  ? "Correct Exercise!"
-                  : "Incorrect. Check Exercise!"}
-              </h2>
-            )}
-            <h2>
-              Set: <span style={styles.greenText}>{sets}</span> / 4
-            </h2>
-            <h2>
-              Rep: <span style={styles.greenText}>{reps}</span> / 12
-            </h2>
-            <h2>
-              Rest Duration: <span style={styles.greenText}>{timer} seconds</span>
-            </h2>
             {exerciseName && (
               <h2 style={styles.exerciseName}>{exerciseName}</h2>
             )}
+            {!exerciseName && hasStarted && (
+              <h2 style={styles.unrecognizedExercise}>Unrecognized Exercise</h2>
+            )}
+            <h2 style={styles.setsRepsText}>
+              Set: <span style={styles.greenText}>{sets}</span> / 4
+            </h2>
+            <h2 style={styles.setsRepsText}>
+              Rep: <span style={styles.greenText}>{reps}</span> / 12
+            </h2>
+            <h2 style={styles.timerText}>
+              Rest Duration: <span style={styles.greenText}>{timer} seconds</span>
+            </h2>
           </div>
           <button type="button" style={styles.finishButton} onClick={handleHome}>
             Finish Workout
@@ -150,10 +155,29 @@ const styles = {
     margin: "20px 0",
   },
   greenText: {
-    color: "green",
+    color: "#5aad70",
   },
-  redText: {
-    color: "red",
+  lightRedText: {
+    color: "#FF6666",
+  },
+  unrecognizedExercise: {
+    textAlign: "center",
+    color: "#FF6666",
+    fontSize: "51px", // Modified text size
+    fontWeight: "bold",
+    marginTop: "5px", // Adjusted margin
+  },
+  exerciseName: {
+    textAlign: "center",
+    color: "#00FF00",
+    fontSize: "51px", // Modified text size
+    fontWeight: "bold",
+    marginTop: "5px", // Adjusted margin
+  },
+  exerciseText: {
+    fontSize: "51px", // Modified text size
+    fontWeight: "bold",
+    marginTop: "5px", // Adjusted margin
   },
   webContainer: {
     padding: "20px",
@@ -204,9 +228,6 @@ const styles = {
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
-  buttonHover: {
-    backgroundColor: "#b38000",
-  },
   videoContainer: {
     position: "relative",
     width: "100%",
@@ -221,11 +242,5 @@ const styles = {
     width: "100%",
     height: "auto",
     borderRadius: "10px",
-  },
-  exerciseName: {
-    color: "#00FF00",
-    fontSize: "24px",
-    fontWeight: "bold",
-    marginTop: "10px",
   },
 };

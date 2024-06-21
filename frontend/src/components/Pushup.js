@@ -13,9 +13,8 @@ const Pushup = () => {
 
   const [hasStarted, setHasStarted] = useState(false);
   const [isCorrectState, setIsCorrectState] = useState(false);
-  const [incorrectCount, setIncorrectCount] = useState(0);
   const [isCooldown, setIsCooldown] = useState(false);
-  const [exerciseName, setExerciseName] = useState(""); // New state for exercise name
+  const [exerciseName, setExerciseName] = useState("");
 
   useEffect(() => {
     let interval = null;
@@ -30,7 +29,6 @@ const Pushup = () => {
   }, [isTimerRunning, timer]);
 
   const handleHome = () => {
-    // Adds record to db
     addRecordToDb("Push Ups", sets, reps, (err, response) => {
       if (err) console.log(err);
     });
@@ -38,7 +36,6 @@ const Pushup = () => {
     window.location.href = "/homepage";
   };
 
-  // Controls the cameras
   const cameraClick = () => {
     setHasStarted(true);
     setIsTimerRunning(false);
@@ -52,26 +49,23 @@ const Pushup = () => {
   };
 
   const LABEL = "push_up";
-  const COOLDOWN_TIME = 2000; // 2 seconds cooldown
+  const COOLDOWN_TIME = 2000;
 
   const predictionHandler = (predictions) => {
     if (predictions) {
-      // console.log(predictions); // Uncomment for debugging
-
       if (predictions.label !== LABEL) {
         setIsCorrectState(false);
-        setIncorrectCount((prevCount) => prevCount + 1);
-        setExerciseName(""); // Clear exercise name if incorrect
+        setExerciseName("");
       } else if (!isCooldown) {
         setIsCorrectState(true);
-        setExerciseName("Push Up"); // Set exercise name if correct
+        setExerciseName("Push Up");
         setReps((prevReps) => {
           const newReps = prevReps + 1;
           if (newReps >= 12) {
             setSets((prevSets) => {
               const newSets = prevSets + 1;
               if (newSets >= 4) {
-                setShowCamera(false); // Close the camera after 4 sets
+                setShowCamera(false);
               }
               return newSets;
             });
@@ -101,18 +95,26 @@ const Pushup = () => {
               Rest
             </button>
           </div>
+          <div style={styles.statusTextContainer}>
+            {hasStarted && (
+              <h2 style={{ color: isCorrectState ? styles.greenText.color : styles.redText.color, ...styles.exerciseText }}>
+                {isCorrectState
+                  ? "Correct Exercise!"
+                  : "Incorrect Exercise"}
+              </h2>
+            )}
+          </div>
           <div style={styles.camera}>
             {showCamera && (
               <Classifier predictionHandler={predictionHandler} />
             )}
           </div>
           <div style={styles.text}>
-            {hasStarted && (
-              <h2 style={{ color: isCorrectState ? "green" : "red" }}>
-                {isCorrectState
-                  ? "Correct Exercise!"
-                  : "Incorrect. Check Exercise!"}
-              </h2>
+            {exerciseName && (
+              <h2 style={styles.exerciseName}>{exerciseName}</h2>
+            )}
+            {!exerciseName && hasStarted && (
+              <h2 style={styles.unrecognizedExercise}>Unrecognized Exercise</h2>
             )}
             <h2>
               Set: <span style={styles.greenText}>{sets}</span> / 4
@@ -123,9 +125,6 @@ const Pushup = () => {
             <h2>
               Rest Duration: <span style={styles.greenText}>{timer} seconds</span>
             </h2>
-            {exerciseName && (
-              <h2 style={styles.exerciseName}>{exerciseName}</h2>
-            )}
           </div>
           <button type="button" style={styles.finishButton} onClick={handleHome}>
             Finish Workout
@@ -149,10 +148,10 @@ const styles = {
     margin: "20px 0",
   },
   greenText: {
-    color: "green",
+    color: "#5aad70",
   },
   redText: {
-    color: "red",
+    color: "#FF6666",
   },
   webContainer: {
     padding: "20px",
@@ -167,6 +166,10 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "20px",
+  },
+  statusTextContainer: {
+    textAlign: "center",
+    marginBottom: "10px", // Reduced margin for closer placement
   },
   camera: {
     marginBottom: "20px",
@@ -203,9 +206,6 @@ const styles = {
     cursor: "pointer",
     transition: "background-color 0.3s ease",
   },
-  buttonHover: {
-    backgroundColor: "#b38000",
-  },
   videoContainer: {
     position: "relative",
     width: "100%",
@@ -223,7 +223,18 @@ const styles = {
   },
   exerciseName: {
     color: "#00FF00",
-    fontSize: "24px",
+    fontSize: "51px",
+    fontWeight: "bold",
+    marginTop: "10px",
+  },
+  unrecognizedExercise: {
+    color: "#FF6666",
+    fontSize: "51px",
+    fontWeight: "bold",
+    marginTop: "10px",
+  },
+  exerciseText: {
+    fontSize: "51px",
     fontWeight: "bold",
     marginTop: "10px",
   },
