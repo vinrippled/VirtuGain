@@ -32,7 +32,7 @@ const Curl = () => {
 
   const handleHome = () => {
     // Adds record to db
-    addRecordToDb("Bicep Curl", sets, reps, (err, response) => {
+    addRecordToDb("Biceps Curl", sets, reps, (err, response) => {
       if (err) console.log(err);
     });
 
@@ -65,7 +65,7 @@ const Curl = () => {
         setExerciseName(""); // Clear exercise name if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
-        setExerciseName("Bicep Curl"); // Set exercise name if correct
+        setExerciseName("Biceps Curl"); // Set exercise name if correct
         setReps((prevReps) => {
           const newReps = prevReps + 1;
           if (newReps >= 6) {
@@ -115,10 +115,10 @@ const Curl = () => {
               <h2 style={styles.unrecognizedExercise}>Unrecognized Exercise</h2>
             )}
             {hasStarted && (
-              <h2 style={{ color: isCorrectState ? "green" : "red" }}>
+              <h2 style={{ color: isCorrectState ? styles.greenText.color : styles.lightRedText.color, ...styles.exerciseText }}>
                 {isCorrectState
                   ? "Correct Exercise!"
-                  : "Incorrect. Check Exercise!"}
+                  : "Incorrect Exercise"}
               </h2>
             )}
             <h2>
@@ -155,8 +155,8 @@ const styles = {
   greenText: {
     color: "green",
   },
-  redText: {
-    color: "red",
+  lightRedText: {
+    color: "#FF6666",
   },
   webContainer: {
     padding: "20px",
@@ -233,6 +233,11 @@ const styles = {
   },
   unrecognizedExercise: {
     color: "#FF0000",
+    fontSize: "24px",
+    fontWeight: "bold",
+    marginTop: "10px",
+  },
+  exerciseText: {
     fontSize: "24px",
     fontWeight: "bold",
     marginTop: "10px",
