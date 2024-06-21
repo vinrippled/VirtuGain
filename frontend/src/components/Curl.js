@@ -32,7 +32,7 @@ const Curl = () => {
 
   const handleHome = () => {
     // Adds record to db
-    addRecordToDb("Biceps Curl", sets, reps, (err, response) => {
+    addRecordToDb("Bicep Curl", sets, reps, (err, response) => {
       if (err) console.log(err);
     });
 
@@ -65,7 +65,7 @@ const Curl = () => {
         setExerciseName(""); // Clear exercise name if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
-        setExerciseName("Biceps Curl"); // Set exercise name if correct
+        setExerciseName("Bicep Curl"); // Set exercise name if correct
         setReps((prevReps) => {
           const newReps = prevReps + 1;
           if (newReps >= 6) {
