@@ -62,7 +62,7 @@ const Curl = () => {
       if (predictions.label !== LABEL) {
         setIsCorrectState(false);
         setIncorrectCount((prevCount) => prevCount + 1);
-        setExerciseName("Unrecognized Exercise"); // Display unrecognized exercise if incorrect
+        setExerciseName(""); // Clear exercise name if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
         setExerciseName("Biceps Curl"); // Set exercise name if correct
@@ -108,6 +108,12 @@ const Curl = () => {
             )}
           </div>
           <div style={styles.text}>
+            {exerciseName && (
+              <h2 style={styles.exerciseName}>{exerciseName}</h2>
+            )}
+            {!exerciseName && hasStarted && (
+              <h2 style={styles.unrecognizedExercise}>Unrecognized Exercise</h2>
+            )}
             {hasStarted && (
               <h2 style={{ color: isCorrectState ? "green" : "red" }}>
                 {isCorrectState
@@ -124,9 +130,6 @@ const Curl = () => {
             <h2>
               Rest Duration: <span style={styles.greenText}>{timer} seconds</span>
             </h2>
-            {exerciseName && (
-              <h2 style={styles.exerciseName}>{exerciseName}</h2>
-            )}
           </div>
           <button type="button" style={styles.finishButton} onClick={handleHome}>
             Finish Workout
@@ -224,6 +227,12 @@ const styles = {
   },
   exerciseName: {
     color: "#00FF00",
+    fontSize: "24px",
+    fontWeight: "bold",
+    marginTop: "10px",
+  },
+  unrecognizedExercise: {
+    color: "#FF0000",
     fontSize: "24px",
     fontWeight: "bold",
     marginTop: "10px",
