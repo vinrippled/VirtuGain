@@ -62,7 +62,7 @@ const Curl = () => {
       if (predictions.label !== LABEL) {
         setIsCorrectState(false);
         setIncorrectCount((prevCount) => prevCount + 1);
-        setExerciseName(""); // Clear exercise name if incorrect
+        setExerciseName("Unrecognized Exercise"); // Display unrecognized exercise if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
         setExerciseName("Biceps Curl"); // Set exercise name if correct
