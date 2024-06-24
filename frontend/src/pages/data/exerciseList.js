@@ -9,13 +9,13 @@ export const EXERCISES = {
   curls: {
     name: "Bicep Curl",
     imageFile: "bicep.jpg",
-    description: "MUSCLE STRENGTH | Build strength in your Upper Arm.",
+    description: "STRENGTH TRAINING | Build strength in your Upper Arm.",
     link: "/curl",
   },
   deadlifts: {
     name: "Deadlift",
     imageFile: "lift.jpg",
-    description: "MUSCLE STRENGTH | Strengthening Upper and Lower Back, and Glutes.",
+    description: "STRENGTH TRAINING | Strengthening Upper and Lower Back, and Glutes.",
     link: "/lift",
   },
   jacks: {
@@ -39,7 +39,7 @@ export const EXERCISES = {
   overheadpress: {
     name: "OverheadPress",
     imageFile: "press.jpg",
-    description: "MUSCLE STRENGTH | Strengthen Shoulders, and Triceps.",
+    description: "STRENGTH TRAINING | Strengthen Shoulders, and Triceps.",
     link: "/overheadpress",
   }, 
 };
