@@ -65,7 +65,7 @@ const Lunge = () => {
         setExerciseName(""); // Clear exercise name if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
-        setExerciseName("Lunges"); // Set exercise name if correct
+        setExerciseName("Lunge"); // Set exercise name if correct
         setReps((prevReps) => {
           const newReps = prevReps + 1;
           if (newReps >= 12) {

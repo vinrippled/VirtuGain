@@ -8,7 +8,7 @@ const Pushup = () => {
   const [showCamera, setShowCamera] = useState(false);
   const [sets, setSets] = useState(0);
   const [reps, setReps] = useState(0);
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState(180);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   const [hasStarted, setHasStarted] = useState(false);
@@ -39,7 +39,7 @@ const Pushup = () => {
   const cameraClick = () => {
     setHasStarted(true);
     setIsTimerRunning(false);
-    setTimer(30);
+    setTimer(180);
     setShowCamera(true);
   };
 
@@ -61,7 +61,7 @@ const Pushup = () => {
         setExerciseName("Push Up");
         setReps((prevReps) => {
           const newReps = prevReps + 1;
-          if (newReps >= 12) {
+          if (newReps >= 6) {
             setSets((prevSets) => {
               const newSets = prevSets + 1;
               if (newSets >= 4) {
@@ -120,7 +120,7 @@ const Pushup = () => {
               Set: <span style={styles.greenText}>{sets}</span> / 4
             </h2>
             <h2>
-              Rep: <span style={styles.greenText}>{reps}</span> / 12
+              Rep: <span style={styles.greenText}>{reps}</span> / 6
             </h2>
             <h2>
               Rest Duration: <span style={styles.greenText}>{timer} seconds</span>
