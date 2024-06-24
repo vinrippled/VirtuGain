@@ -7,33 +7,33 @@ export const EXERCISES_PER_TYPE = {
 
 export const EXERCISES = {
   curls: {
-    name: "Bicep Curls",
+    name: "Bicep Curl",
     imageFile: "bicep.jpg",
     description: "MUSCLE STRENGTH | Build strength in your Upper Arm.",
     link: "/curl",
   },
   deadlifts: {
-    name: "Deadlifts",
+    name: "Deadlift",
     imageFile: "lift.jpg",
     description: "MUSCLE STRENGTH | Strengthening Upper and Lower Back, and Glutes.",
     link: "/lift",
   },
   jacks: {
-    name: "Jump Jacks",
+    name: "JumpingJack",
     imageFile: "jacks.jpg",
-    description: "ENDURANCE | Burn Fat and Build Muscle without using Weights.",
+    description: "CARDIO | Burn Fat and Build Muscle without using Weights.",
     link: "/jack",
   },
   lunges: {
-    name: "Lunges",
+    name: "Lunge",
     imageFile: "lunges.jpg",
-    description: "ENDURANCE | Increases Muscle Mass in Core, Butt, and Legs.",
+    description: "CARDIO | Increases Muscle Mass in Core, Butt, and Legs.",
     link: "/lunge",
   },
   pushups: {
-    name: "Push Ups",
+    name: "Push Up",
     imageFile: "pushup.jpg",
-    description: "ENDURANCE | Strengthen and tone Chest, Triceps, and Shoulders.",
+    description: "CARDIO | Strengthen and tone Chest, Triceps, and Shoulders.",
     link: "/pushup",
   },
   overheadpress: {
