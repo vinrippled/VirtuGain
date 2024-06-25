@@ -65,7 +65,7 @@ const Jack = () => {
         setExerciseName(""); // Clear exercise name if incorrect
       } else if (!isCooldown) {
         setIsCorrectState(true);
-        setExerciseName("Jump and Jacks"); // Set exercise name if correct
+        setExerciseName("Jumping Jacks"); // Set exercise name if correct
         setReps((prevReps) => {
           const newReps = prevReps + 1;
           if (newReps >= 12) {
