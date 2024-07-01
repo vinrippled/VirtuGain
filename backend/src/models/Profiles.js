@@ -36,7 +36,7 @@ profileSchema.pre("save", function (next) {
 
   // Calculate bmi
   const calculateBMI = (height, weight) => {
-    return weight / (height * height);
+    return (weight / (height * height)).toFixed(2);
   };
 
   profile.bmi = calculateBMI(profile.height, profile.weight);
